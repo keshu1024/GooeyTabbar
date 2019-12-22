@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class AnimatedButton: UIButton {
     /// 按钮的回调
     var didTapped : ((_ button:UIButton)->())?
@@ -78,18 +79,18 @@ class AnimatedButton: UIButton {
             let moveUp = CABasicAnimation(keyPath: "transform.translation.y")
             moveUp.duration = 0.3
             moveUp.delegate = self
-            moveUp.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            moveUp.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
             moveUp.toValue = -5.0
-            moveUp.fillMode = kCAFillModeForwards
+            moveUp.fillMode = CAMediaTimingFillMode.forwards
             moveUp.isRemovedOnCompletion = false
             secondLine.add(moveUp, forKey: "moveUp_2")
             
             let moveDown = CABasicAnimation(keyPath: "transform.translation.y")
             moveDown.duration = 0.3
             moveDown.delegate = self
-            moveDown.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            moveDown.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
             moveDown.toValue = 5.0
-            moveDown.fillMode = kCAFillModeForwards
+            moveDown.fillMode = CAMediaTimingFillMode.forwards
             moveDown.isRemovedOnCompletion = false
             firstLine.add(moveDown, forKey: "moveDown_1")
             
@@ -100,7 +101,7 @@ class AnimatedButton: UIButton {
             rotation_second.duration = 0.3
             rotation_second.values = [45 * (CGFloat.pi/180),70 * (CGFloat.pi/180),0]
             rotation_second.keyTimes = [0.0,0.4,1.0]
-            rotation_second.fillMode = kCAFillModeForwards
+            rotation_second.fillMode = CAMediaTimingFillMode.forwards
             rotation_second.isRemovedOnCompletion = false
             rotation_second.delegate = self
             secondLine.add(rotation_second, forKey: "rotation_second_close")
@@ -109,7 +110,7 @@ class AnimatedButton: UIButton {
             rotation_first.duration = 0.4
             rotation_first.values = [135 * (CGFloat.pi/180),170 * (CGFloat.pi/180),0]
             rotation_first.keyTimes = [0.0,0.4,1.0]
-            rotation_first.fillMode = kCAFillModeForwards
+            rotation_first.fillMode = CAMediaTimingFillMode.forwards
             rotation_first.isRemovedOnCompletion = false
             rotation_first.delegate = self
             firstLine.add(rotation_first, forKey: "rotation_first_close")
@@ -131,7 +132,7 @@ extension AnimatedButton: CAAnimationDelegate {
             rotation_second.duration = 0.5
             rotation_second.values = [0,70 * (CGFloat.pi/180),45 * (CGFloat.pi/180)]
             rotation_second.keyTimes = [0.0,0.6,1.0]
-            rotation_second.fillMode = kCAFillModeForwards
+            rotation_second.fillMode = CAMediaTimingFillMode.forwards
             rotation_second.isRemovedOnCompletion = false
             secondLine.add(rotation_second, forKey: "rotation_second_open")
         }else if anim == firstLine.animation(forKey: "moveDown_1") {
@@ -139,7 +140,7 @@ extension AnimatedButton: CAAnimationDelegate {
             rotation_first.duration = 0.6
             rotation_first.values = [0,170 * (CGFloat.pi/180),135 * (CGFloat.pi/180)]
             rotation_first.keyTimes = [0.0,0.6,1.0]
-            rotation_first.fillMode = kCAFillModeForwards
+            rotation_first.fillMode = CAMediaTimingFillMode.forwards
             rotation_first.isRemovedOnCompletion = false
             rotation_first.delegate = self
             firstLine.add(rotation_first, forKey: "rotation_first_open")
@@ -147,18 +148,18 @@ extension AnimatedButton: CAAnimationDelegate {
             let moveUp = CABasicAnimation(keyPath: "transform.translation.y")
             moveUp.duration = 0.2
             moveUp.delegate = self
-            moveUp.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            moveUp.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
             moveUp.toValue = 0.0
-            moveUp.fillMode = kCAFillModeForwards
+            moveUp.fillMode = CAMediaTimingFillMode.forwards
             moveUp.isRemovedOnCompletion = false
             secondLine.add(moveUp, forKey: "moveDown_2")
         }else if anim == firstLine.animation(forKey: "rotation_first_close") {
             let moveDown = CABasicAnimation(keyPath: "transform.translation.y")
             moveDown.duration = 0.2
             moveDown.delegate = self
-            moveDown.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            moveDown.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
             moveDown.toValue = 0.0
-            moveDown.fillMode = kCAFillModeForwards
+            moveDown.fillMode = CAMediaTimingFillMode.forwards
             moveDown.isRemovedOnCompletion = false
             firstLine.add(moveDown, forKey: "moveUp_1")
         }
@@ -169,3 +170,4 @@ extension AnimatedButton: CAAnimationDelegate {
     }
     
 }
+
