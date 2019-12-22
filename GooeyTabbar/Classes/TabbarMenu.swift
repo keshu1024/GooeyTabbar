@@ -10,7 +10,7 @@ import UIKit
 
 enum MenuTextureType {
     case withColor(color: UIColor)
-    case withBlur(blurStyle: UIBlurEffectStyle)
+    case withBlur(blurStyle: UIBlurEffect.Style)
 }
 
 class TabbarMenu: UIView {
@@ -21,7 +21,7 @@ class TabbarMenu: UIView {
     fileprivate var normalRect : UIView!
     fileprivate var springRect : UIView!
     fileprivate var keyWindow  : UIWindow!
-    fileprivate weak var backDimmingView: UIVisualEffectView!
+    fileprivate weak var backDimmingView: UIVisualEffectView?
     fileprivate var displayLink : CADisplayLink!
     fileprivate var animationCount : Int = 0
     fileprivate var diff : CGFloat = 0
@@ -29,7 +29,7 @@ class TabbarMenu: UIView {
     fileprivate var initialFrame : CGRect?
     fileprivate var animateButton : AnimatedButton?
     fileprivate var bouncyMask: CAShapeLayer?
-    fileprivate var textureType: MenuTextureType = .withColor(color: UIColor(colorLiteralRed: 50/255.0, green: 58/255.0, blue: 68/255.0, alpha: 1.0))
+    fileprivate var textureType: MenuTextureType = .withColor(color: UIColor(red: 50/255.0, green: 58/255.0, blue: 68/255.0, alpha: 1.0))
     
     var topSpace : CGFloat = 64.0 //留白
     fileprivate var tabbarheight : CGFloat = 0.0 //tabbar高度
@@ -76,14 +76,14 @@ class TabbarMenu: UIView {
             let backgroundBlurView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
             backgroundBlurView.frame = self.bounds
             addSubview(backgroundBlurView)
-            var dimmingStyle: UIBlurEffectStyle
+            var dimmingStyle: UIBlurEffect.Style
             switch blurStyle {
             case .dark:
                 dimmingStyle = .light
             default:
                 dimmingStyle = .dark
             }
-            backDimmingView.effect = UIBlurEffect(style: dimmingStyle)
+            backDimmingView?.effect = UIBlurEffect(style: dimmingStyle)
         case .withColor(let color):
             self.backgroundColor = color
         }
@@ -128,7 +128,7 @@ class TabbarMenu: UIView {
             }) { (finish) -> Void in
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut, animations: { () -> Void in
                     self.normalRect.center = CGPoint(x: self.normalRect.center.x, y: 100)
-                    self.backDimmingView.alpha = 1.0
+                    self.backDimmingView?.alpha = 1.0
                 }, completion: nil)
                 
                 UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.0, options: .curveEaseOut, animations: { () -> Void in
@@ -154,9 +154,9 @@ class TabbarMenu: UIView {
             
             UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut, animations: { () -> Void in
                 self.normalRect.center = CGPoint(x: self.normalRect.center.x, y: UIScreen.main.bounds.size.height - 30 - 50)
-                self.backDimmingView.alpha = 0.0
+                self.backDimmingView?.alpha = 0.0
             }, completion: { (finished) in
-                self.backDimmingView.removeFromSuperview()
+                self.backDimmingView?.removeFromSuperview()
             })
             
             UIView.animate(withDuration: 0.25, delay:0.0, options: .curveEaseOut, animations: { () -> Void in
@@ -196,7 +196,7 @@ class TabbarMenu: UIView {
         if displayLink == nil
         {
             self.displayLink = CADisplayLink(target: self, selector: #selector(TabbarMenu.update(_:)))
-            self.displayLink.add(to: RunLoop.main, forMode: RunLoopMode.defaultRunLoopMode)
+            self.displayLink.add(to: RunLoop.main, forMode: RunLoop.Mode.default)
         }
         animationCount += 1
     }
